@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0071e3">
+  <meta name="description" content="Discover the best restaurants in Korea — Seoul, Busan, and Jeju.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="KoreaTour">
+  <title>Korea Tour Map</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="header-inner">
+      <div class="header-logo">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <circle cx="14" cy="14" r="14" fill="#0071e3"/>
+          <text x="14" y="19" text-anchor="middle" fill="white" font-size="14" font-family="-apple-system, sans-serif" font-weight="700">K</text>
+        </svg>
+        <span class="logo-text" data-i18n="appTitle">Korea Tour Map</span>
+      </div>
+      <nav class="lang-switcher" aria-label="Language selector">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <button class="lang-btn" data-lang="zh">中</button>
+        <button class="lang-btn" data-lang="ja">日</button>
+        <button class="lang-btn" data-lang="fr">FR</button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Filter Bar -->
+  <div class="filter-bar" id="filterBar">
+    <div class="filter-inner">
+      <div class="poi-toggles">
+        <button class="poi-toggle" id="btnToggleLockers" data-active="false">🔒 Lockers</button>
+      </div>
+       <div class="search-bar">
+         <button id="searchModeToggle" class="search-mode-btn" data-mode="restaurant">🍽️</button>
+         <input type="text" id="searchInput" placeholder="Search restaurants or areas..." autocomplete="off">
+         <button id="searchClear" style="display:none">✕</button>
+       </div>
+      <div class="region-tabs" role="tablist" aria-label="Region filter">
+        <button class="region-tab active" data-region="all" role="tab" data-i18n="all">All</button>
+        <button class="region-tab" data-region="seoul" role="tab" data-i18n="seoul">Seoul</button>
+        <button class="region-tab" data-region="busan" role="tab" data-i18n="busan">Busan</button>
+        <button class="region-tab" data-region="jeju" role="tab" data-i18n="jeju">Jeju</button>
+        <button class="region-tab" data-region="gyeonggi"    role="tab" data-i18n="gyeonggi">경기</button>
+        <button class="region-tab" data-region="incheon"     role="tab" data-i18n="incheon">인천</button>
+        <button class="region-tab" data-region="gangwon"     role="tab" data-i18n="gangwon">강원</button>
+        <button class="region-tab" data-region="chungcheong" role="tab" data-i18n="chungcheong">충청</button>
+        <button class="region-tab" data-region="jeolla"      role="tab" data-i18n="jeolla">전라</button>
+        <button class="region-tab" data-region="gyeongsang"  role="tab" data-i18n="gyeongsang">경상</button>
+        <button class="region-tab" data-region="other"       role="tab" data-i18n="other">기타</button>
+      </div>
+      <div class="category-filters" role="group" aria-label="Category filter">
+        <button class="cat-chip active" data-cat="all" data-i18n="catAll">All</button>
+        <button class="cat-chip" data-cat="korean" data-i18n="catKorean">Korean</button>
+        <button class="cat-chip" data-cat="chinese" data-i18n="catChinese">Chinese</button>
+        <button class="cat-chip" data-cat="japanese" data-i18n="catJapanese">Japanese</button>
+        <button class="cat-chip" data-cat="western" data-i18n="catWestern">Western</button>
+        <button class="cat-chip" data-cat="asian" data-i18n="catAsian">Asian</button>
+        <button class="cat-chip" data-cat="dessert" data-i18n="catDessert">Dessert</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Layout -->
+  <main class="main-layout" id="mainLayout">
+    <!-- Map -->
+    <div class="map-container" id="map"></div>
+
+    <!-- Side Panel -->
+    <aside class="side-panel" id="sidePanel" aria-label="Restaurant details">
+      <!-- Handle for mobile -->
+      <div class="panel-handle" id="panelHandle">
+        <div class="handle-bar"></div>
+      </div>
+
+      <!-- Empty state -->
+      <div class="panel-empty" id="panelEmpty">
+        <div class="panel-empty-icon">🗺️</div>
+        <p class="panel-empty-title" data-i18n="emptyTitle">Select a restaurant</p>
+        <p class="panel-empty-sub" data-i18n="emptySubtitle">Tap any marker on the map to see details</p>
+      </div>
+
+      <!-- Restaurant detail (hidden initially) -->
+      <div class="panel-detail" id="panelDetail" style="display:none">
+        <!-- Restaurant Header -->
+        <div class="restaurant-header">
+          <div class="restaurant-category-badge" id="detailCategoryBadge"></div>
+          <h2 class="restaurant-name" id="detailName"></h2>
+          <p class="restaurant-name-en" id="detailNameEn"></p>
+          <div class="restaurant-rating" id="detailRating"></div>
+        </div>
+
+        <!-- Info -->
+        <div class="restaurant-info">
+          <div class="info-row">
+            <span class="info-icon">📍</span>
+            <span class="info-label" data-i18n="address">Address</span>
+            <span class="info-value" id="detailAddress"></span>
+          </div>
+          <div class="info-row">
+            <span class="info-icon">🕐</span>
+            <span class="info-label" data-i18n="hours">Hours</span>
+            <span class="info-value" id="detailHours"></span>
+          </div>
+          
+        
+
+        <!-- Description -->
+        <p class="restaurant-description" id="detailDescription"></p>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button class="btn-primary" id="btnDirections" data-i18n="directions">Get Directions</button>
+          <button class="btn-secondary" id="btnAddRoute" data-i18n="addToRoute">Add to Route</button>
+          <button class="btn-secondary" id="btnNaverMap" data-i18n="naverMap">🗺️ Naver Map</button>
+        </div>
+
+        <!-- Reviews Section -->
+        <div class="reviews-section">
+          <div class="reviews-header">
+            <h3 data-i18n="reviews">Reviews</h3>
+            <button class="btn-add-review" id="btnAddReview" data-i18n="addReview">Write a Review</button>
+          </div>
+          <div class="reviews-list" id="reviewsList"></div>
+        </div>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Route Plan FAB -->
+  <button class="route-fab" id="routeFab" aria-label="Plan My Route">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="5" cy="5" r="2"/><circle cx="17" cy="17" r="2"/><path d="M5 7v3a3 3 0 003 3h6a3 3 0 013 3v1"/>
+    </svg>
+    <span data-i18n="planRoute">Plan My Route</span>
+    <span class="route-count" id="routeCount" style="display:none">0</span>
+  </button>
+
+  <!-- Route Plan Panel -->
+  <div class="route-panel" id="routePanel" style="display:none">
+    <div class="route-panel-header">
+      <h3 data-i18n="routeTitle">My Route</h3>
+      <button class="btn-icon" id="btnCloseRoute" aria-label="Close">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><line x1="1" y1="1" x2="17" y2="17"/><line x1="17" y1="1" x2="1" y2="17"/></svg>
+      </button>
+    </div>
+    <p class="route-hint" data-i18n="routeHint">Select up to 5 restaurants on the map</p>
+    <div class="route-stops" id="routeStops"></div>
+    <div class="route-actions">
+      <button class="btn-primary route-start" id="btnStartRoute" data-i18n="startNav" disabled>Start Navigation</button>
+      <button class="btn-ghost" id="btnClearRoute" data-i18n="clearRoute">Clear All</button>
+    </div>
+  </div>
+
+  <!-- Review Modal -->
+  <div class="modal-overlay" id="reviewModal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="reviewModalTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 id="reviewModalTitle" data-i18n="addReview">Write a Review</h3>
+        <button class="btn-icon" id="btnCloseReview" aria-label="Close">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2"><line x1="1" y1="1" x2="17" y2="17"/><line x1="17" y1="1" x2="1" y2="17"/></svg>
+        </button>
+      </div>
+      <form class="review-form" id="reviewForm" novalidate>
+        <div class="form-group">
+          <label for="reviewNationality" data-i18n="nationality">Your Nationality</label>
+          <select id="reviewNationality" required>
+            <option value="" data-i18n="selectNationality">Select nationality...</option>
+            <option value="American">&#x1F1FA;&#x1F1F8; American</option>
+            <option value="British">&#x1F1EC;&#x1F1E7; British</option>
+            <option value="Chinese">&#x1F1E8;&#x1F1F3; Chinese</option>
+            <option value="Japanese">&#x1F1EF;&#x1F1F5; Japanese</option>
+            <option value="French">&#x1F1EB;&#x1F1F7; French</option>
+            <option value="German">&#x1F1E9;&#x1F1EA; German</option>
+            <option value="Australian">&#x1F1E6;&#x1F1FA; Australian</option>
+            <option value="Canadian">&#x1F1E8;&#x1F1E6; Canadian</option>
+            <option value="Spanish">&#x1F1EA;&#x1F1F8; Spanish</option>
+            <option value="Italian">&#x1F1EE;&#x1F1F9; Italian</option>
+            <option value="Brazilian">&#x1F1E7;&#x1F1F7; Brazilian</option>
+            <option value="Thai">&#x1F1F9;&#x1F1ED; Thai</option>
+            <option value="Singaporean">&#x1F1F8;&#x1F1EC; Singaporean</option>
+            <option value="Malaysian">&#x1F1F2;&#x1F1FE; Malaysian</option>
+            <option value="Indonesian">&#x1F1EE;&#x1F1E9; Indonesian</option>
+            <option value="Vietnamese">&#x1F1FB;&#x1F1F3; Vietnamese</option>
+            <option value="Filipino">&#x1F1F5;&#x1F1ED; Filipino</option>
+            <option value="Indian">&#x1F1EE;&#x1F1F3; Indian</option>
+            <option value="Mexican">&#x1F1F2;&#x1F1FD; Mexican</option>
+            <option value="Russian">&#x1F1F7;&#x1F1FA; Russian</option>
+            <option value="Dutch">&#x1F1F3;&#x1F1F1; Dutch</option>
+            <option value="Swedish">&#x1F1F8;&#x1F1EA; Swedish</option>
+            <option value="Swiss">&#x1F1E8;&#x1F1ED; Swiss</option>
+            <option value="Taiwanese">&#x1F1F9;&#x1F1FC; Taiwanese</option>
+            <option value="Other">&#x1F30D; Other</option>  
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="reviewNickname">Nickname</label>
+          <input type="text" id="reviewNickname" placeholder="Enter your nickname" maxlength="20" required>
+        </div>
+        <div class="form-group">
+          <label data-i18n="rating">Rating</label>
+          <div class="star-picker" id="starPicker" role="radiogroup" aria-label="Rating">
+            <button type="button" class="star" data-val="1" aria-label="1 star">★</button>
+            <button type="button" class="star" data-val="2" aria-label="2 stars">★</button>
+            <button type="button" class="star" data-val="3" aria-label="3 stars">★</button>
+            <button type="button" class="star" data-val="4" aria-label="4 stars">★</button>
+            <button type="button" class="star" data-val="5" aria-label="5 stars">★</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="reviewText" data-i18n="reviewText">Your Review</label>
+          <textarea id="reviewText" rows="4" placeholder="Share your experience..." required minlength="10"></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn-ghost" id="btnCancelReview" data-i18n="cancel">Cancel</button>
+          <button type="submit" class="btn-primary" data-i18n="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <script>
+    // Inline the map callback so it's available before the async script loads
+    window.__naverMapsLoaded = false;
+  </script>
+  <script src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=i22sfc8ub4" onload="window.__naverMapsLoaded=true; window.__naverReadyCb && window.__naverReadyCb();" onerror="window.__naverMapsError=true; window.__naverReadyCb && window.__naverReadyCb();"></script>
+  <script src="app.js"></script>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyBmV093XO0NXxlrtEy-vaOrGaXGMR5Alg4",
+    authDomain: "koreatourmap-c9761.firebaseapp.com",
+    projectId: "koreatourmap-c9761",
+    storageBucket: "koreatourmap-c9761.firebasestorage.app",
+    messagingSenderId: "403623282013",
+    appId: "1:403623282013:web:6989a95c705b53b1c314b4"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  window.db = db;
+  window.firestore = { collection, addDoc, getDocs, query, where };
+</script>
+</body>
+</html>
