@@ -159,7 +159,12 @@ const regionCenters = {
 };
 
 const catEmoji = { korean:'🍲', chinese:'🥡', japanese:'🍱', western:'🍝', asian:'🍜', dessert:'🍰', other:'🍽️', '요리주점':'🍶', '맥주/호프':'🍺' };
-const catLabel = { korean:'Korean', chinese:'Chinese', japanese:'Japanese', western:'Western', asian:'Asian', dessert:'Dessert', other:'Other', '요리주점':'요리주점', '맥주/호프':'맥주/호프' };
+const catLabel = {
+  en:  { korean:'Korean', chinese:'Chinese', japanese:'Japanese', western:'Western', asian:'Asian', dessert:'Dessert', other:'Other', '요리주점':'Dining Bar', '맥주/호프':'Beer & Hof' },
+  zh:  { korean:'韩食', chinese:'中餐', japanese:'日料', western:'西餐', asian:'东南亚', dessert:'甜点', other:'其他', '요리주점':'料理居酒屋', '맥주/호프':'啤酒吧' },
+  ja:  { korean:'韓食', chinese:'中華', japanese:'和食', western:'洋食', asian:'アジア料理', dessert:'デザート', other:'その他', '요리주점':'料理居酒屋', '맥주/호프':'ビアホール' },
+  fr:  { korean:'Coréen', chinese:'Chinois', japanese:'Japonais', western:'Occidental', asian:'Asiatique', dessert:'Dessert', other:'Autre', '요리주점':'Bar Izakaya', '맥주/호프':'Bar à Bière' },
+};
 const typeEmoji = { tourism:'🗺️', shopping:'🛍️', cafe:'☕' };
 const channelShape = {
   '가희드': 'square',
@@ -406,7 +411,7 @@ function renderPanelDetail(r) {
   dom.panelEmpty.style.display  = 'none';
   dom.panelDetail.style.display = 'block';
 
-  dom.detailBadge.textContent  = catLabel[r.category];
+  dom.detailBadge.textContent  = (catLabel[state.lang] || catLabel.en)[r.category];
   dom.detailBadge.className    = `restaurant-category-badge badge-${r.category}`;
   dom.detailName.textContent   = r.name;
   dom.detailNameEn.textContent = r.nameEn;
