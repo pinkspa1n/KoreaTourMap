@@ -158,8 +158,8 @@ const regionCenters = {
   other:      { lat: 36.5040, lng: 127.7669, zoom: 7  },
 };
 
-const catEmoji = { korean:'🍲', chinese:'🥡', japanese:'🍱', western:'🍝', asian:'🍜', dessert:'🍰', other:'🍽️' };
-const catLabel = { korean:'Korean', chinese:'Chinese', japanese:'Japanese', western:'Western', asian:'Asian', dessert:'Dessert', other:'Other' };
+const catEmoji = { korean:'🍲', chinese:'🥡', japanese:'🍱', western:'🍝', asian:'🍜', dessert:'🍰', other:'🍽️', '요리주점':'🍶', '맥주/호프':'🍺' };
+const catLabel = { korean:'Korean', chinese:'Chinese', japanese:'Japanese', western:'Western', asian:'Asian', dessert:'Dessert', other:'Other', '요리주점':'요리주점', '맥주/호프':'맥주/호프' };
 const typeEmoji = { tourism:'🗺️', shopping:'🛍️', cafe:'☕' };
 const channelShape = {
   '가희드': 'square',

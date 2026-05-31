@@ -27,6 +27,8 @@
   --korean: #ff6b6b;
   --chinese: #f5a623;
   --japanese: #34aadc;
+  --yorizujum: #2ecc71;
+  --maekju: #95a5a6;
   --meat: #ff8e53;
 }
 
@@ -92,6 +94,8 @@ input, select, textarea { font-family: var(--font); }
 .cat-chip[data-cat="korean"].active { background: #fff0f0; border-color: var(--korean); color: var(--korean); }
 .cat-chip[data-cat="chinese"].active { background: #fff8ed; border-color: var(--chinese); color: var(--chinese); }
 .cat-chip[data-cat="japanese"].active { background: #edf7ff; border-color: var(--japanese); color: var(--japanese); }
+.cat-chip[data-cat="요리주점"].active { background: #edfff3; border-color: var(--yorizujum); color: var(--yorizujum); }
+.cat-chip[data-cat="맥주/호프"].active { background: #f4f4f4; border-color: var(--maekju); color: var(--maekju); }
 .cat-chip[data-cat="meat"].active { background: #fff3ed; border-color: var(--meat); color: var(--meat); }
 
 /* ── Main Layout ── */
@@ -141,6 +145,8 @@ input, select, textarea { font-family: var(--font); }
 .badge-korean { background: #fff0f0; color: var(--korean); }
 .badge-chinese { background: #fff8ed; color: var(--chinese); }
 .badge-japanese { background: #edf7ff; color: var(--japanese); }
+.badge-요리주점 { background: #edfff3; color: var(--yorizujum); }
+.badge-맥주\/호프 { background: #f4f4f4; color: var(--maekju); }
 .badge-meat { background: #fff3ed; color: var(--meat); }
 
 .restaurant-name { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 4px; }
@@ -292,6 +298,8 @@ input, select, textarea { font-family: var(--font); }
 .marker-korean { background: var(--korean); }
 .marker-chinese { background: var(--chinese); }
 .marker-japanese { background: var(--japanese); }
+.marker-요리주점 { background: var(--yorizujum); }
+.marker-맥주\/호프 { background: var(--maekju); }
 .marker-meat { background: var(--meat); }
 
 /* ── Modal ── */
